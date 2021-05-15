@@ -1,0 +1,12 @@
+name: CoWIN Checker
+
+on:
+  schedule:
+  - cron: "*/5 * * * *"
+
+jobs:
+  checker:
+    name: 👀 Cron Job is running
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by cron job."
