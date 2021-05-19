@@ -19,35 +19,41 @@ var checkAvailability = async () => {
   let isAvailable = false;
   let availableCenters = [];
 
-  let res = await axios.get(getUrl(pinCode, district), {
-    headers: { "User-Agent": USER_AGENT },
-  });
-
-  if (!res) throw new Error(`CoWIN API request failed: \n\n${res}`);
-
-  const { centers } = res.data;
-
-  if (centers.length > 0) {
-    centers.forEach((center) => {
-      center.sessions.forEach((session) => {
-        if (
-          session.available_capacity > 0 &&
-          session.min_age_limit <= checkAge
-        ) {
-          isAvailable = true;
-          availableCenters.push({
-            center_id: center.center_id,
-            name: center.name,
-            address: center.address,
-            block_name: center.block_name,
-            from: center.from,
-            to: center.to,
-            date: session.date,
-          });
-        }
-      });
+  try {
+    let res = await axios.get(getUrl(pinCode, district), {
+      headers: {
+        "User-Agent": USER_AGENT,
+        origin: "https://www.cowin.gov.in",
+        referer: "https://www.cowin.gov.in/",
+      },
     });
-    console.log(availableCenters);
+
+    const { centers } = res.data;
+
+    if (centers.length > 0) {
+      centers.forEach((center) => {
+        center.sessions.forEach((session) => {
+          if (
+            session.available_capacity > 0 &&
+            session.min_age_limit <= checkAge
+          ) {
+            isAvailable = true;
+            availableCenters.push({
+              center_id: center.center_id,
+              name: center.name,
+              address: center.address,
+              block_name: center.block_name,
+              from: center.from,
+              to: center.to,
+              date: session.date,
+            });
+          }
+        });
+      });
+      console.log(availableCenters);
+    }
+  } catch (error) {
+    throw new Error(`CoWIN API request failed: \n${error.response.data}`);
   }
 };
 
