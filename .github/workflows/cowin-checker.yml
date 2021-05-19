@@ -1,12 +1,15 @@
 name: CoWIN Checker
 
 on:
-  schedule:
-  - cron: "*/5 * * * *"
+  push:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - webhook
 
 jobs:
   checker:
-    name: 👀 Cron Job is running
+    name: 👀 Job is running
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by cron job."
+      - run: echo "🎉 The job was automatically triggered by webhook."
