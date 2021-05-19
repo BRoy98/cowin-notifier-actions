@@ -23,6 +23,7 @@ var checkAvailability = async () => {
     let res = await axios.get(getUrl(pinCode, district), {
       headers: {
         "User-Agent": USER_AGENT,
+        Host: "cdn-api.co-vin.in",
         origin: "https://www.cowin.gov.in",
         referer: "https://www.cowin.gov.in/",
       },
@@ -53,7 +54,7 @@ var checkAvailability = async () => {
       console.log(availableCenters);
     }
   } catch (error) {
-    throw new Error(`CoWIN API request failed: \n${error.response.data}`);
+    console.log(error);
   }
 };
 
