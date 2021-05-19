@@ -6,6 +6,8 @@ const DIST_URL =
   "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={{DISTRICT_ID}}&date={{DATE}}";
 const PIN_URL =
   "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode={{PINCODE}}&date={{DATE}}";
+const USER_AGENT =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36";
 
 /**
  * Checks for slot availability from API Setu Server
@@ -18,7 +20,7 @@ var checkAvailability = async () => {
   let availableCenters = [];
 
   let res = await axios.get(getUrl(pinCode, district), {
-    headers: { "User-Agent": "PostmanRuntime/7.26.10" },
+    headers: { "User-Agent": USER_AGENT },
   });
 
   if (!res) throw new Error(`CoWIN API request failed: \n\n${res}`);
