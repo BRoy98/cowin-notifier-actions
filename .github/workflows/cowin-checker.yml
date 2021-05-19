@@ -11,5 +11,23 @@ jobs:
   checker:
     name: 👀 Job is running
     runs-on: ubuntu-latest
+
+    env:
+      AGE: ${{ secrets.AGE }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      MAIL_RECEIVER: ${{ secrets.MAIL_RECEIVER }}
+      CHECK_PINCODE: ${{ secrets.CHECK_PINCODE }}
+      CHECK_DISTRICT: ${{ secrets.CHECK_DISTRICT }}
+      CHECK_AGE: ${{ secrets.CHECK_AGE }}
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by webhook."
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - run: npm install
+      - run: npm run check
