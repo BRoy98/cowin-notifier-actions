@@ -1,0 +1,5 @@
+name: "CoWIN Checker"
+description: "Check for CoWIN Slot availability"
+runs:
+  using: "node12"
+  main: "index.js"

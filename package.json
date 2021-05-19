@@ -10,8 +10,11 @@
     "check": "node index.js"
   },
   "dependencies": {
+    "@actions/core": "^1.2.7",
     "axios": "^0.21.1",
     "date-fns": "^2.21.3",
+    "dotenv": "^9.0.2",
     "nodemailer": "^6.6.0"
-  }
+  },
+  "devDependencies": {}
 }
